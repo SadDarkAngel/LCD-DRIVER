@@ -1,0 +1,69 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "allwinner,sun7i-a20";
+
+	fragment@0 {
+		target = <&i2c2>;
+		__overlay__ {
+			panel: panel@50 {
+				compatible = "olimex,lcd-olinuxino";
+				reg = <0x50>;
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&lcd0_rgb888_pins>;
+				status = "okay";
+
+				power-supply = <&reg_vcc5v0>;
+				enable-gpios = <&pio 7 8 GPIO_ACTIVE_HIGH>;
+
+				backlight = <&backlight>;
+
+				port@0 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <0>;
+
+					panel_in_tcon0: endpoint@0 {
+						reg = <0>;
+						remote-endpoint = <&tcon0_out_panel>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&pwm>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&pwm0_pins_a>;
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&tcon0_out>;
+		__overlay__ {
+			tcon0_out_panel: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&panel_in_tcon0>;
+				allwinner,tcon-channel = <0>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target-path = "/";
+		__overlay__ {
+			backlight: backlight {
+				compatible = "pwm-backlight";
+				power-supply = <&reg_vcc5v0>;
+				pwms = <&pwm 0 50000 PWM_POLARITY_INVERTED>;
+				brightness-levels = <0 10 20 30 40 50 60 70 80 90 100>;
+				default-brightness-level = <8>;
+			};
+		};
+	};
+};

@@ -1,0 +1,178 @@
+\documentclass{article}
+
+%
+% Import packages
+% ===============
+
+\usepackage[T1]{fontenc}
+\usepackage{bytefield}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{float}
+\usepackage{parskip}
+
+%
+% Change default font
+% ===================
+\renewcommand{\familydefault}{\sfdefault}
+
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+
+\title{LCD-DRIVER}
+\author{Olimex Ltd.}
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\pagebreak
+	
+	
+	\section{Description}
+	\begin{multicols}{2}
+		\lipsum
+	\end{multicols}
+	
+	\section{EEPROM content}
+	
+	\begin{figure}[H]
+		\centering
+	 	\begin{bytefield}[bitheight=4\baselineskip]{32} 
+	 		
+		 	\begin{rightwordgroup}{4 bytes}
+		 		\bitbox[]{4}{\texttt{0x00} \\[2\baselineskip]
+		 			\texttt{0x03}} &
+		 		\bitbox{28}{Header}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{4 bytes}
+		 		\bitbox[]{4}{\texttt{0x04} \\[2\baselineskip]
+		 			\texttt{0x07}} &
+		 		\bitbox{28}{ID}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{4 bytes}
+		 		\bitbox[]{4}{\texttt{0x08} \\[2\baselineskip]
+		 			\texttt{0x0B}} &
+		 		\bitbox{28}{Revision}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{4 bytes}
+		 		\bitbox[]{4}{\texttt{0x0C} \\[2\baselineskip]
+		 			\texttt{0x0F}} &
+		 		\bitbox{28}{Serial}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{164 bytes}
+		 		\bitbox[]{4}{\texttt{0x10} \\[2\baselineskip]
+		 			\texttt{0xB3}} &
+		 		\bitbox{28}{Configuration}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{72 bytes}
+		 		\bitbox[]{4}{\texttt{0xB4} \\[2\baselineskip]
+		 			\texttt{0xFB}} &
+		 		\bitbox{28}{Reserved}
+		 	\end{rightwordgroup} \\
+		 	
+		 	\begin{rightwordgroup}{4 bytes}
+		 		\bitbox[]{4}{\texttt{0xFC} \\[2\baselineskip]
+		 			\texttt{0xFF}} &
+		 		\bitbox{28}{Checksum}
+		 	\end{rightwordgroup} \\
+		 	
+		 	
+	 	\end{bytefield}
+	 	\caption{EEPROM layout}
+	 	\label{fig:EEPROM_LAYOUT}
+ \end{figure}
+ 
+ \subsection{Header}
+ \texttt{0xFC}
+ 
+ \subsection{ID}
+ 
+ \subsection{Revision}
+ 
+ \subsection{Serial}
+ 
+ \subsection{Configuration}
+ 
+ 	\begin{figure}
+ 		\centering
+ 		\begin{bytefield}[
+ 			leftcurly=.,
+ 			leftcurlyspace=0pt,
+ 			bitformatting={\small\ttfamily},
+ 			boxformatting={\centering\small},
+ 			endianness=big]{32} 
+	 			\bitheader{0,31} \\
+				\begin{rightwordgroup}{Timing}
+		 			\begin{leftwordgroup}{\texttt{0x10} & \\ \\ \\ & \texttt{0x18}}
+			 			\wordbox{3}{Pixelclock}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x1C} & \\ \\ \\  & \texttt{0x24}}
+						\wordbox{3}{H. Active}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x28} & \\ \\ \\  & \texttt{0x30}}
+						\wordbox{3}{H. Front porch}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x34} & \\ \\ \\  & \texttt{0x3C}}
+						\wordbox{3}{H. Back porch}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x40} & \\ \\ \\  & \texttt{0x48}}
+						\wordbox{3}{H. Pulse width}
+		 			\end{leftwordgroup}
+				\\
+		 			\begin{leftwordgroup}{\texttt{0x4C} & \\ \\ \\  & \texttt{0x54}}
+						\wordbox{3}{V. Active}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x58} & \\ \\ \\  & \texttt{0x60}}
+						\wordbox{3}{V. Front porch}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x64} & \\ \\ \\  & \texttt{0x6C}}
+						\wordbox{3}{V. Back porch}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0x70} & \\ \\ \\  & \texttt{0x78}}
+						\wordbox{3}{V. Pulse width}
+		 			\end{leftwordgroup}
+					\\
+		 			\begin{leftwordgroup}{\texttt{0x7C}}
+						\wordbox{1}{Timing flags}
+					\end{leftwordgroup}
+				\end{rightwordgroup} \\
+				\\
+		 	
+		 		\begin{rightwordgroup}{Info}
+		 			\begin{leftwordgroup}{\texttt{0x80} & 
+					 	\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ & \texttt{0x9C}}
+		 				\wordbox{8}{Name}
+		 			\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0xA0}}
+						\wordbox{1}{Bits per color channel}
+					\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0xA4}}
+						\wordbox{1}{Width}
+					\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0xA8}}
+						\wordbox{1}{Height}
+					\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0xAC}}
+						\wordbox{1}{Bus format}
+					\end{leftwordgroup} \\
+		 			\begin{leftwordgroup}{\texttt{0xB0}}
+						\wordbox{1}{Bus flags}
+					\end{leftwordgroup}
+				\end{rightwordgroup}
+ 		\end{bytefield}
+ 		\caption{Timings section}
+ 		\label{fig:TIMINGS_LAYOYT}
+ 	\end{figure}
+		 
+
+\end{document}
