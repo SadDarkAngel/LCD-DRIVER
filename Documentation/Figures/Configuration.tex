@@ -4,57 +4,12 @@
 	bitformatting={\small\ttfamily},
 	boxformatting={\centering\small},
 	endianness=big]{32}
-	\begin{rightwordgroup}{Timing}
-		\begin{leftwordgroup}{\texttt{0x10} & \\ \\ \\ & \texttt{0x18}}
-			\wordbox{3}{Pixelclock}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x1C} & \\ \\ \\  & \texttt{0x24}}
-			\wordbox{3}{H. Active}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x28} & \\ \\ \\  & \texttt{0x30}}
-			\wordbox{3}{H. Front porch}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x34} & \\ \\ \\  & \texttt{0x3C}}
-			\wordbox{3}{H. Back porch}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x40} & \\ \\ \\  & \texttt{0x48}}
-			\wordbox{3}{H. Pulse width}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x4C} & \\ \\ \\  & \texttt{0x54}}
-			\wordbox{3}{V. Active}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x58} & \\ \\ \\  & \texttt{0x60}}
-			\wordbox{3}{V. Front porch}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x64} & \\ \\ \\  & \texttt{0x6C}}
-			\wordbox{3}{V. Back porch}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0x70} & \\ \\ \\  & \texttt{0x78}}
-			\wordbox{3}{V. Pulse width}
-		\end{leftwordgroup}	\\
-		\begin{leftwordgroup}{\texttt{0x7C}}
-			\wordbox{1}{Timing flags}
-		\end{leftwordgroup}
-	\end{rightwordgroup} \\
-	\\
-	\begin{rightwordgroup}{Info}
-		\begin{leftwordgroup}{\texttt{0x80} & \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ & \texttt{0x9C}}
-			\wordbox{8}{Name}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0xA0}}
-			\wordbox{1}{Bits per color channel}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0xA4}}
-			\wordbox{1}{Width}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0xA8}}
-			\wordbox{1}{Height}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0xAC}}
-			\wordbox{1}{Bus format}
-		\end{leftwordgroup} \\
-		\begin{leftwordgroup}{\texttt{0xB0}}
-			\wordbox{1}{Bus flags}
-		\end{leftwordgroup}
-	\end{rightwordgroup}
+	\begin{leftwordgroup}{\texttt{0x10} & \\ \\ \\ \\ \\ & \texttt{0x43}}
+		\wordbox{4}{Info}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x44}}
+		\wordbox[rlt]{1}{Timings}
+	\end{leftwordgroup} \\
+	\skippedwords \\
+	\wordbox[lrb]{1}{}	
 \end{bytefield}

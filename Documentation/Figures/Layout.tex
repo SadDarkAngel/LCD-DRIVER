@@ -1,51 +1,31 @@
-\begin{bytefield}[bitheight=4\baselineskip]{32}
-	\begin{rightwordgroup}{4 bytes}
-		\bitbox[]{4}{
-			\texttt{0x00} \\[2\baselineskip]
-			\texttt{0x03}
-			} &
-		\bitbox{28}{Header}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{4 bytes}
-		\bitbox[]{4}{
-			\texttt{0x04} \\[2\baselineskip]
-			\texttt{0x07}
-			} &
-		\bitbox{28}{ID}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{4 bytes}
-		\bitbox[]{4}{
-			\texttt{0x08} \\[2\baselineskip]
-			\texttt{0x0B}
-			} &
-		\bitbox{28}{Revision}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{4 bytes}
-		\bitbox[]{4}{
-			\texttt{0x0C} \\[2\baselineskip]
-			\texttt{0x0F}
-			} &
-		\bitbox{28}{Serial}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{164 bytes}
-		\bitbox[]{4}{
-			\texttt{0x10} \\[2\baselineskip]
-			\texttt{0xB3}
-			} &
-		\bitbox{28}{Configuration}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{72 bytes}
-		\bitbox[]{4}{
-			\texttt{0xB4} \\[2\baselineskip]
-			\texttt{0xFB}
-			} &
-		\bitbox{28}{Reserved}
-	\end{rightwordgroup} \\
-	\begin{rightwordgroup}{4 bytes}
-		\bitbox[]{4}{
-			\texttt{0xFC} \\[2\baselineskip]
-			\texttt{0xFF}
-			} &
-		\bitbox{28}{Checksum}
-	\end{rightwordgroup} \\
+\begin{bytefield}[
+	leftcurly=.,
+	leftcurlyspace=0pt,
+	bitformatting={\small\ttfamily},
+	boxformatting={\centering\small},
+	endianness=big]{32}
+	\begin{leftwordgroup}{\texttt{0x00}}
+		\wordbox{1}{Header}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x04}}
+		\wordbox{1}{ID}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x08}}
+		\wordbox{1}{Revision}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x0C}}
+		\wordbox{1}{Serial}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x0C}}
+		\wordbox[lrt]{1}{Configuration}
+	\end{leftwordgroup} \\
+	\skippedwords \\
+	\wordbox[lrb]{1}{} \\
+		
+	\begin{leftwordgroup}{\texttt{0xFC}}
+		\wordbox{1}{Checksum}
+	\end{leftwordgroup} \\
+	
+
+
 \end{bytefield}

@@ -28,7 +28,6 @@
 % ===================
 \renewcommand{\familydefault}{\sfdefault}
 
-
 %
 % Setup geometry
 %===============
@@ -46,7 +45,6 @@
 	\end{tabular} \\
 	}
 
-
 \title{LCD-DRIVER}
 \author{Olimex Ltd.}
 \begin{document}
@@ -62,6 +60,9 @@
 	\end{multicols}
 
 	\section{EEPROM content}
+	
+	Memory layout can be seen on \ref{fig:EEPROM_LAYOUT}. It's separated into several sections.
+	Most of them are fixed length, except configuration.
 
 	\begin{figure}[H]
 		\centering
@@ -103,25 +104,62 @@
 	\regs{0x0C}{0x04}
 
 	Unique serial number for each board.
+	
+	
 
 	\subsection{Configuration}
-	\regs{0x10}{0xA4}
+	\regs{0x10}{--------}
 
-
-	Configuration section holds information about the timings. Once read the controller must
-	determine if they are suitable. The section can be divided to two smaller subsections:
+	Configuration section holds information about the timings and the LCD itself.
+	The layout is shown at Figure \ref{fig:EEPROM_CONFIG}.
+	
+	\begin{figure}[H]
+		\centering
+		\input{Figures/Configuration}
+		\caption{Timings section}
+		\label{fig:EEPROM_CONFIG}
+	\end{figure}
+	
+	The section can be divided to two smaller subsections:
 	\begin{itemize}
-		\item Timing
 		\item Info
+		\item Timing
 	\end{itemize}
 
-	The layout is shown at Figure \ref{figure:Configuration}.
+		\subsubsection{Info}
+		The layout of this section is shown at Figure \ref{fig:EEPROM_INFO}.
+		\begin{figure}[H]
+			\centering
+			\input{Figures/Info}
+			\caption{Info section}
+			\label{fig:EEPROM_INFO}
+		\end{figure}
+		
+		This field contains the following fields.
+		\begin{itemize}
+			\item Name -- The name of the board, e.g. \texttt{"LCD-OLinuXino-7}
+			\item Bits per color channel -- Number of bits describing one color, typically 8
+			\item Width -- Physical width of the panel in millimeters
+			\item Height -- Physical height of the panel in millimeters
+			\item Bus format -- The value must be get from
+			\textbf{include/uapi/linux/media-bus-format.h}
+			\item Bus flags -- The value must be get from \textbf{include/uapi/drm/drm\_mode.h}
+		\end{itemize}
+		
+			
 
 		\subsubsection{Timing}
-		The fields in this subsection describes timing requirements of the LCD. Each field is 3 bytes long
-		representing minimal, typical and maximum value. \\
+		The fields in this subsection describes timing requirements of the LCD. The layout of this section is shown at Figure \ref{fig:EEPROM_TIMINGS}.
+		\begin{figure}[H]
+			\centering
+			\input{Figures/Timing}
+			\caption{Timing section}
+			\label{fig:EEPROM_TIMINGS}
+		\end{figure}
+	
 		The fields are:
 		\begin{itemize}
+			\item Timings count -- Number of timing configurations, stored in the EEPROM. Maximum is 4.
 			\item Pixelclock
 			\item Horizontal active area
 			\item Horizontal front porch
@@ -133,23 +171,13 @@
 			\item Vertical pulse width
 			\item Timing flags
 		\end{itemize}
+		
+		
 
-		\begin{figure}
-			\centering
-			\input{Figures/Configuration}
-			\label{figure:Configuration}
-			\caption{Timings section}
-		\end{figure}
-
-		\subsubsection{Info}
-		This field contains additional fields.
-		\begin{itemize}
-			\item Name
-			\item Bits per color channel
-			\item Width
-			\item Height
-			\item Bus format
-			\item Bus flags
-		\end{itemize}
+		
+	\subsection{Checksum}
+	\regs{0xFC}{0x04}
+	
+	The checksum is used to verify data integrity. It's calculated as CRC32.
 
 \end{document}

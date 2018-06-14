@@ -1,0 +1,25 @@
+\begin{bytefield}[
+	leftcurly=.,
+	leftcurlyspace=0pt,
+	bitformatting={\small\ttfamily},
+	boxformatting={\centering\small},
+	endianness=big]{32}
+	\begin{leftwordgroup}{\texttt{0x10} & \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ & \texttt{0x2C}}
+		\wordbox{8}{Name}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x30}}
+		\wordbox{1}{Bits per color channel}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x34}}
+		\wordbox{1}{Width}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x38}}
+		\wordbox{1}{Height}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x3C}}
+		\wordbox{1}{Bus format}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x40}}
+		\wordbox{1}{Bus flags}
+	\end{leftwordgroup}
+\end{bytefield}
