@@ -5,8 +5,9 @@
 	boxformatting={\centering\small},
 	endianness=big]{32}
 	
+	
 	\begin{leftwordgroup}{\texttt{0x44}}
-		\wordbox{1}{Timings count}
+		\wordbox{1}{Modes number}
 	\end{leftwordgroup} \\
 	\\
 	\begin{leftwordgroup}{\texttt{0x48}}
@@ -37,6 +38,9 @@
 		\wordbox{1}{V. Pulse width}
 	\end{leftwordgroup}	\\
 	\begin{leftwordgroup}{\texttt{0x6C}}
+		\wordbox{1}{Refresh rate}
+	\end{leftwordgroup} \\
+	\begin{leftwordgroup}{\texttt{0x70}}
 		\wordbox{1}{Timing flags}
 	\end{leftwordgroup}	
 \end{bytefield}

@@ -123,7 +123,7 @@
 	The section can be divided to two smaller subsections:
 	\begin{itemize}
 		\item Info
-		\item Timing
+		\item Mode
 	\end{itemize}
 
 		\subsubsection{Info}
@@ -148,19 +148,19 @@
 		
 			
 
-		\subsubsection{Timing}
-		The fields in this subsection describes timing requirements of the LCD. The layout of this section is shown at Figure \ref{fig:EEPROM_TIMINGS}.
+		\subsubsection{Mode}
+		The fields in this subsection describes timing requirements of the LCD. The layout of this section is shown at Figure \ref{fig:EEPROM_MODES}.
 		\begin{figure}[H]
 			\centering
 			\input{Figures/Timing}
-			\caption{Timing section}
-			\label{fig:EEPROM_TIMINGS}
+			\caption{Modes section}
+			\label{fig:EEPROM_MODES}
 		\end{figure}
 	
 		The fields are:
 		\begin{itemize}
-			\item Timings count -- Number of timing configurations, stored in the EEPROM. Maximum is 4.
-			\item Pixelclock
+			\item Modes number -- The total number of modes stored
+			\item Pixelclock -- Frequency of the pixel-clock in \textbf{kHz}
 			\item Horizontal active area
 			\item Horizontal front porch
 			\item Horizontal back porch
@@ -169,6 +169,7 @@
 			\item Vertical front porch
 			\item Vertical back porch
 			\item Vertical pulse width
+			\item Refresh rate
 			\item Timing flags
 		\end{itemize}
 		
