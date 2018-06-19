@@ -160,7 +160,8 @@ static int lcd_olinuxino_get_modes(struct drm_panel *panel)
 	struct drm_display_mode *mode;
 	int i, num = 0;
 
-	for (i = 0; i < lcd->eeprom.num_modes; i++) {
+	/* Read up to 4 modes */
+	for (i = 0; i < lcd->eeprom.num_modes && i < 4; i++) {
 		lcd_mode = (struct lcd_olinuxino_mode *)
 			   &lcd->eeprom.reserved[i * sizeof(*lcd_mode)];
 
@@ -228,9 +229,9 @@ static int lcd_olinuxino_probe(struct i2c_client *client,
 	u32 checksum;
 	int i, ret = 0;
 
-	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C ||
+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C |
 				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
-		return -ENOSYS;
+		return -ENODEV;
 
 	lcd = devm_kzalloc(dev, sizeof(*lcd), GFP_KERNEL);
 	if (!lcd)
@@ -243,7 +244,7 @@ static int lcd_olinuxino_probe(struct i2c_client *client,
 	mutex_init(&lcd->mutex);
 
 	/* Copy data into buffer */
-	for(i = 0; i < LCD_OLINUXINO_DATA_LEN; i += I2C_SMBUS_BLOCK_MAX) {
+	for (i = 0; i < LCD_OLINUXINO_DATA_LEN; i += I2C_SMBUS_BLOCK_MAX) {
 		mutex_lock(&lcd->mutex);
 		ret = i2c_smbus_read_i2c_block_data(client,
 						    i,
